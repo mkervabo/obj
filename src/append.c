@@ -6,13 +6,13 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:48:34 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/03 18:56:46 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:35:11 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 
-bool			append_triangle(t_triangle_array *triangle, t_triangle t)
+bool			append_triangle(t_object *triangle, t_triangle t)
 {
 	size_t	new_capacity;
 	t_triangle	*new;
@@ -66,5 +66,43 @@ bool			append_vertex(t_vertex_array *vertex, t_vertex v)
 		vertex->capacity = new_capacity;
 	}
 	vertex->inner[vertex->len++] = v;
+	return (true);
+}
+
+bool			append_groupe(t_obj *obj, t_groupe groupe)
+{
+	size_t	new_capacity;
+	t_obj	*new;
+
+	if (obj->len == obj->capacity)
+	{
+		new_capacity = obj->capacity * 2;
+		if (!(new = malloc(new_capacity * sizeof(t_groupe))))
+			return (false);
+		ft_memcpy(new, obj->inner, obj->capacity);
+		free(obj->inner);
+		obj->inner = new;
+		obj->capacity = new_capacity;
+	}
+	obj->inner[obj->len++] = groupe;
+	return (true);
+}
+
+bool			append_object(t_groupe *groupe, t_object object)
+{
+	size_t	new_capacity;
+	t_groupe	*new;
+
+	if (groupe->len == groupe->capacity)
+	{
+		new_capacity = groupe->capacity * 2;
+		if (!(new = malloc(new_capacity * sizeof(t_object))))
+			return (false);
+		ft_memcpy(new, groupe->inner, groupe->capacity);
+		free(groupe->inner);
+		groupe->inner = new;
+		groupe->capacity = new_capacity;
+	}
+	groupe->inner[groupe->len++] = object;
 	return (true);
 }

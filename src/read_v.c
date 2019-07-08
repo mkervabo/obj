@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:51:56 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/03 19:15:41 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:36:30 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_obj_error	read_vertex(t_reader *r, t_vertex *v)
 t_obj_error		read_normal(t_reader *r, t_vertex_array *normals)
 {
 
-	char 		c;
+	int16_t		c;
 	t_obj_error err;
 	t_vertex	normal;
 	
@@ -55,7 +55,7 @@ t_obj_error		read_normal(t_reader *r, t_vertex_array *normals)
 
 t_obj_error		read_pos(t_reader *r, t_pos_array *pos)
 {
-	char 		c;
+	int16_t		c;
 	t_obj_error err;
 	t_pos		p;
 	
@@ -83,7 +83,7 @@ t_obj_error		read_pos(t_reader *r, t_pos_array *pos)
 
 t_obj_error	read_vertices(t_reader *r, t_vertex_array *vertices)
 {
-	char 		c;
+	int16_t		c;
 	t_obj_error err;
 	t_vertex	vertex;
 

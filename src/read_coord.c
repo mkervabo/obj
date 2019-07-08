@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:56:52 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/03 18:59:51 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:35:52 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static double	read_float(t_reader *r)
 double		read_coord(t_reader *r, double *coord)
 {
 	bool	sign;
-	char 	c;
+	int16_t	c;
 
 	c = reader_peek(r);
 	if (c < '0' || c > '9')

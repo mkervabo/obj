@@ -6,15 +6,15 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:44:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/03 18:46:50 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/08 11:47:31 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 
-t_triangle_array		create_triangle_array(size_t capacity)
+t_object		create_object(size_t capacity)
 {
-	return ((t_triangle_array) {
+	return ((t_object) {
 		.len = 0,
 		.capacity = capacity,
 		.inner = malloc(capacity * sizeof(t_triangle))
@@ -36,5 +36,23 @@ t_vertex_array		create_vertex_array(size_t capacity)
 		.len = 0,
 		.capacity = capacity,
 		.inner = malloc(capacity * sizeof(t_vertex))
+	});
+}
+
+t_obj		create_obj(size_t capacity)
+{
+	return ((t_obj) {
+		.len = 0,
+		.capacity = capacity,
+		.inner = malloc(capacity * sizeof(t_groupe))
+	});
+}
+
+t_groupe		create_groupe(size_t capacity)
+{
+	return ((t_groupe) {
+		.len = 0,
+		.capacity = capacity,
+		.inner = malloc(capacity * sizeof(t_object))
 	});
 }
