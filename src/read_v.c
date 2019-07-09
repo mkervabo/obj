@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:51:56 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:36:30 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:44:31 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static t_obj_error	read_vertex(t_reader *r, t_vertex *v)
 
 	reader_next(r);
 	skip_ws(r, false);
-	if ((err = read_coord(r, &v->x)) != No_Error);
+	if ((err = read_coord(r, &v->x)) != No_Error)
 		return (err);
 	skip_ws(r, false);
-	if ((err = read_coord(r, &v->y)) != No_Error);
+	if ((err = read_coord(r, &v->y)) != No_Error)
 		return (err);
 	skip_ws(r, false);
-	if ((err = read_coord(r, &v->z)) != No_Error);
+	if ((err = read_coord(r, &v->z)) != No_Error)
 		return (err);
 	skip_ws(r, false);
 	if (reader_peek(r) != '\n')
@@ -66,10 +66,10 @@ t_obj_error		read_pos(t_reader *r, t_pos_array *pos)
 			return (Invalid_Pos);
 		reader_next(r);
 		skip_ws(r, false);
-		if ((err = read_coord(r, &p.x)) != No_Error);
+		if ((err = read_coord(r, &p.x)) != No_Error)
 			return (err);
 		skip_ws(r, false);
-		if ((err = read_coord(r, &p.y)) != No_Error);
+		if ((err = read_coord(r, &p.y)) != No_Error)
 			return (err);
 		skip_ws(r, false);
 		if (!append_pos(pos, p))

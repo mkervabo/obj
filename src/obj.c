@@ -6,11 +6,12 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:58:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:45:19 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:35:56 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
+#include <stdlib.h>
 
 void			skip_ws(t_reader *r, bool newline)
 {

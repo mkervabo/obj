@@ -6,11 +6,12 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:48:34 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:35:11 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:32:13 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
+#include <stdlib.h>
 
 bool			append_triangle(t_object *triangle, t_triangle t)
 {
@@ -71,8 +72,8 @@ bool			append_vertex(t_vertex_array *vertex, t_vertex v)
 
 bool			append_groupe(t_obj *obj, t_groupe groupe)
 {
-	size_t	new_capacity;
-	t_obj	*new;
+	size_t		new_capacity;
+	t_groupe	*new;
 
 	if (obj->len == obj->capacity)
 	{
@@ -90,8 +91,8 @@ bool			append_groupe(t_obj *obj, t_groupe groupe)
 
 bool			append_object(t_groupe *groupe, t_object object)
 {
-	size_t	new_capacity;
-	t_groupe	*new;
+	size_t		new_capacity;
+	t_object	*new;
 
 	if (groupe->len == groupe->capacity)
 	{

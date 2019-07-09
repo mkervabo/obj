@@ -6,11 +6,12 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:44:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/08 11:47:31 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:29:48 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
+#include <stdlib.h>
 
 t_object		create_object(size_t capacity)
 {

@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:01:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/08 12:41:13 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:42:59 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ t_vertex_array			create_vertex_array(size_t capacity);
 t_obj					create_obj(size_t capacity);
 t_groupe				create_groupe(size_t capacity);
 
+void					*ft_memcpy(void *dst, const void *src, size_t n);
 bool					append_triangle(t_object *triangle, t_triangle t);
 bool					append_pos(t_pos_array *pos, t_pos p);
 bool					append_vertex(t_vertex_array *vertex, t_vertex v);
@@ -144,8 +145,12 @@ void					skip_ws(t_reader *r, bool newline);
 t_obj_error				read_vertices(t_reader *r, t_vertex_array *v);
 t_obj_error				read_pos(t_reader *r, t_pos_array *p);
 t_obj_error				read_normal(t_reader *r, t_vertex_array *n);
+t_obj_error				read_groupe(t_reader *r, t_groupe *groupe);
+t_obj_error				read_object(t_reader *r, t_object *object);
+t_obj_error				read_triangles(t_reader *r, t_object *object);
 
 
 double					read_coord(t_reader *r, double *coord);
+double					read_integer(t_reader *r, bool *s);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:56:52 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:35:52 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:38:00 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 
-static 			read_integer(t_reader *r, bool *s)
+double			read_integer(t_reader *r, bool *s)
 {
 	double	num;
 	int16_t	c;

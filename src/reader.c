@@ -6,11 +6,11 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:13:11 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/05/13 14:35:51 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:45:47 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "toml.h"
+#include "obj.h"
 #include <unistd.h>
 
 t_reader	create_reader(int fd, char *buffer, size_t buffer_size)
@@ -28,7 +28,7 @@ t_reader	create_reader(int fd, char *buffer, size_t buffer_size)
 
 int16_t		reader_peek(t_reader *self)
 {
-	ssize_t	len;
+	size_t	len;
 
 	if (self->i == self->len)
 	{
