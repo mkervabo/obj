@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_groupe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:34:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:44:08 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 22:03:29 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "obj.c"
+#include "obj.h"
 #include <stdlib.h>
 
 
@@ -40,7 +40,7 @@ static bool			append_char(char **str, char c, size_t *size , size_t i)
 		*str = new;
 		*size = new_size;
 	}
-	*str[i] = c;
+	(*str)[i] = c;
 	return (true);
 }
 
@@ -54,9 +54,9 @@ static t_obj_error	read_name(t_reader *r, char **name)
 	if (!(*name = (char*)malloc(sizeof(char) * size)))
 		return (Error_Malloc);
 	i = 0;
-	while ((c = reader_peek(r) != -1 && c != '\n'))
+	while ((c = reader_peek(r)) != -1 && c != '\n')
 	{
-		if (append_char(name, c, &size, i) == false)
+		if (append_char(name, c, &size, i) == false) 
 			return (Error_Malloc);
 		i++;
 		reader_next(r);
@@ -66,9 +66,28 @@ static t_obj_error	read_name(t_reader *r, char **name)
 	return (No_Error);
 }
 
-t_obj_error			read_object(t_reader *r, t_object *object)
+t_obj_error			read_groupe(t_reader *r, t_groupe *groupe)
 {
 	t_obj_error	err;
+
+	*groupe = create_groupe(10);
+	reader_next(r);
+	skip_ws(r, false);
+	if (reader_peek(r) == '\n')
+		return (Missing_Name);
+	if ((err = read_name(r, &groupe->name)) != No_Error)
+		return (err);
+	skip_ws(r, true);
+	if ((err = read_triangles(r, groupe)) != No_Error)
+		return (err);
+	return (No_Error);
+}
+
+t_obj_error			read_object(t_reader *r, t_object *object)
+{
+	t_obj_error err;
+	t_groupe	groupe;
+	char		c;
 
 	*object = create_object(10);
 	skip_ws(r, false);
@@ -77,31 +96,15 @@ t_obj_error			read_object(t_reader *r, t_object *object)
 	if ((err = read_name(r, &object->name)) != No_Error)
 		return (err);
 	skip_ws(r, true);
-	if ((err = read_triangles(r, object)) != No_Error)
-		return (err);
-	return (No_Error);
-}
-
-t_obj_error			read_groupe(t_reader *r, t_groupe *groupe)
-{
-	t_obj_error err;
-	t_object	object;
-	char		c;
-
-	*groupe = create_groupe(10);
-	skip_ws(r, false);
-	if (reader_peek(r) == '\n')
-		return (Missing_Name);
-	if ((err = read_name(r, &groupe->name)) != No_Error)
-		return (err);
-	skip_ws(r, true);
-	while ((c = reader_peek(r) != -1) && c == 'o')
+	while ((c = reader_peek(r)) != -1 && c == 'g')
 	{
-		if ((err = read_object(r, &object)) != No_Error)
+		if ((err = read_groupe(r, &groupe)) != No_Error)
 			return (err);
-		if (append_object(groupe, object) == false)
+		if (append_groupe(object, groupe) == false)
 			return (Error_Malloc);
 		skip_ws(r, true);
 	}
+	if (c != -1)
+		return (Unexpected_Char);
 	return (No_Error);
 }

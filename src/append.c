@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:48:34 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:32:13 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 22:01:02 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 #include <stdlib.h>
 
-bool			append_triangle(t_object *triangle, t_triangle t)
+bool			append_triangle(t_groupe *triangle, t_triangle t)
 {
 	size_t	new_capacity;
 	t_triangle	*new;
@@ -70,7 +70,7 @@ bool			append_vertex(t_vertex_array *vertex, t_vertex v)
 	return (true);
 }
 
-bool			append_groupe(t_obj *obj, t_groupe groupe)
+bool			append_groupe(t_object *obj, t_groupe groupe)
 {
 	size_t		new_capacity;
 	t_groupe	*new;
@@ -89,21 +89,21 @@ bool			append_groupe(t_obj *obj, t_groupe groupe)
 	return (true);
 }
 
-bool			append_object(t_groupe *groupe, t_object object)
+bool			append_object(t_obj *obj, t_object object)
 {
 	size_t		new_capacity;
 	t_object	*new;
 
-	if (groupe->len == groupe->capacity)
+	if (obj->len == obj->capacity)
 	{
-		new_capacity = groupe->capacity * 2;
+		new_capacity = obj->capacity * 2;
 		if (!(new = malloc(new_capacity * sizeof(t_object))))
 			return (false);
-		ft_memcpy(new, groupe->inner, groupe->capacity);
-		free(groupe->inner);
-		groupe->inner = new;
-		groupe->capacity = new_capacity;
+		ft_memcpy(new, obj->inner, obj->capacity);
+		free(obj->inner);
+		obj->inner = new;
+		obj->capacity = new_capacity;
 	}
-	groupe->inner[groupe->len++] = object;
+	obj->inner[obj->len++] = object;
 	return (true);
 }

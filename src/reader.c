@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:13:11 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:45:47 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:58:17 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int16_t		reader_peek(t_reader *self)
 {
 	size_t	len;
 
-	if (self->i == self->len)
+	if (self->i >= self->len)
 	{
 		len = read(self->fd, self->buffer, self->buffer_size);
 		if (len <= 0)

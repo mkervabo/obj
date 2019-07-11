@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:01:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:42:59 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 22:01:29 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef enum	e_obj_error
 	Invalid_Pos,
 	Invalid_Normal,
 	Invalid_Triangle,
-	Invalid_Triangle_Vertex
+	Invalid_Triangle_Vertex,
+	Unexpected_Char
 }				t_obj_error;
 
 typedef struct s_pos
@@ -99,28 +100,27 @@ typedef struct s_triangle
 	t_t_vertex	c;
 }				t_triangle;
 
-typedef struct	s_object
-{
-	char		*name;
-	size_t		len;
-	size_t		capacity;
-	t_triangle	*inner;
-}				t_object;
-
-
 typedef struct s_groupe
 {
 	char		*name;
 	size_t		len;
 	size_t		capacity;
-	t_object	*inner;
+	t_triangle	*inner;
 }				t_groupe;
+
+typedef struct	s_object
+{
+	char		*name;
+	size_t		len;
+	size_t		capacity;
+	t_groupe	*inner;
+}				t_object;
 
 typedef struct s_obj
 {
 	size_t		len;
 	size_t		capacity;
-	t_groupe	*inner;
+	t_object	*inner;
 }				t_obj;
 
 t_reader				create_reader(int fd, char *buffer, size_t buffer_size);
@@ -134,20 +134,20 @@ t_obj					create_obj(size_t capacity);
 t_groupe				create_groupe(size_t capacity);
 
 void					*ft_memcpy(void *dst, const void *src, size_t n);
-bool					append_triangle(t_object *triangle, t_triangle t);
+bool					append_triangle(t_groupe *groupe, t_triangle t);
 bool					append_pos(t_pos_array *pos, t_pos p);
 bool					append_vertex(t_vertex_array *vertex, t_vertex v);
-bool					append_groupe(t_obj *obj, t_groupe groupe);
-bool					append_object(t_groupe *groupe, t_object object);
-
+bool					append_object(t_obj *obj, t_object object);
+bool					append_groupe(t_object *object, t_groupe groupe);
 void					skip_ws(t_reader *r, bool newline);
 
+t_obj_error				read_obj(t_reader *r, t_obj *obj);
 t_obj_error				read_vertices(t_reader *r, t_vertex_array *v);
 t_obj_error				read_pos(t_reader *r, t_pos_array *p);
 t_obj_error				read_normal(t_reader *r, t_vertex_array *n);
 t_obj_error				read_groupe(t_reader *r, t_groupe *groupe);
 t_obj_error				read_object(t_reader *r, t_object *object);
-t_obj_error				read_triangles(t_reader *r, t_object *object);
+t_obj_error				read_triangles(t_reader *r, t_groupe *groupe);
 
 
 double					read_coord(t_reader *r, double *coord);

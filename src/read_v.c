@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_v.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:51:56 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:44:31 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 21:34:08 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_obj_error		read_normal(t_reader *r, t_vertex_array *normals)
 	t_obj_error err;
 	t_vertex	normal;
 	
+	*normals = create_vertex_array(10);
 	while ((c = reader_peek(r)) != -1 && c == 'v')
 	{
 		reader_next(r);
@@ -59,6 +60,7 @@ t_obj_error		read_pos(t_reader *r, t_pos_array *pos)
 	t_obj_error err;
 	t_pos		p;
 	
+	*pos = create_pos_array(10);
 	while ((c = reader_peek(r)) != -1 && c == 'v')
 	{
 		reader_next(r);
@@ -87,6 +89,7 @@ t_obj_error	read_vertices(t_reader *r, t_vertex_array *vertices)
 	t_obj_error err;
 	t_vertex	vertex;
 
+	*vertices = create_vertex_array(10);
 	while ((c = reader_peek(r)) != -1 && c == 'v')
 	{
 		if ((err = read_vertex(r, &vertex)) != No_Error)

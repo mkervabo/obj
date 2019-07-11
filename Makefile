@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+         #
+#    By: adimose <adimose@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/08 15:25:21 by mkervabo          #+#    #+#              #
-#    Updated: 2019/07/09 10:16:42 by mkervabo         ###   ########.fr        #
+#    Updated: 2019/07/11 21:35:20 by adimose          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME   = obj.a
 CC     = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude
+CFLAGS = -Wall -Wextra -Werror -Iinclude -g
 
 include src.mk
 
@@ -33,6 +33,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re:	fclean all
+re:	fclean all 
 
 .PHONY:	all	clean fclean re

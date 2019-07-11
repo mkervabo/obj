@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_coord.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:56:52 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:38:00 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 21:41:46 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ double		read_coord(t_reader *r, double *coord)
 	int16_t	c;
 
 	c = reader_peek(r);
-	if (c < '0' || c > '9')
-		return(Invalid_Coord);
+	if ((c < '0' || c > '9') && c != '-' && c != '+')
+		return (Invalid_Coord);
 	*coord = read_integer(r, &sign);
 	if (reader_peek(r) != '.')
-		return(Invalid_Coord);
+		return (Invalid_Coord);
+	reader_next(r);
 	*coord = (sign ? -1 : 1) * (*coord + read_float(r));
 	return (No_Error);
 }

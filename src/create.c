@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:44:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:29:48 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 21:57:40 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_object		create_object(size_t capacity)
 	return ((t_object) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_triangle))
+		.inner = malloc(capacity * sizeof(t_groupe))
 	});
 }
 
@@ -45,7 +45,7 @@ t_obj		create_obj(size_t capacity)
 	return ((t_obj) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_groupe))
+		.inner = malloc(capacity * sizeof(t_object))
 	});
 }
 
@@ -54,6 +54,6 @@ t_groupe		create_groupe(size_t capacity)
 	return ((t_groupe) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_object))
+		.inner = malloc(capacity * sizeof(t_triangle))
 	});
 }

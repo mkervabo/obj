@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_f.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:59:37 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/09 10:39:20 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/11 22:02:59 by adimose          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static t_obj_error	read_f(t_reader *r, t_f *vertex)
 	char	c;
 	bool	b;
 
-	reader_next(r);
-	skip_ws(r, false);
 	if ((c = reader_peek(r)) < '0' || c > '9')
 		return (Invalid_Triangle_Vertex);
 	vertex->v = (size_t)read_integer(r, &b) - 1;
@@ -43,8 +41,10 @@ static	t_obj_error	info_triangle(t_reader *r, t_infos *info)
 
 	if ((err = read_vertices(r, &info->v)) != No_Error)
 		return (err);
+	skip_ws(r, true);
 	if ((err = read_pos(r, &info->vt)) != No_Error)
 		return (err);
+	skip_ws(r, true);
 	if ((err = read_normal(r, &info->vn)) != No_Error)
 		return (err);
 	return (No_Error);
@@ -90,21 +90,22 @@ static t_obj_error	read_triangle(t_reader *r, t_infos *infos, t_triangle *triang
 	return (No_Error);
 }
 
-t_obj_error			read_triangles(t_reader *r, t_object *object)
+t_obj_error			read_triangles(t_reader *r, t_groupe *groupe)
 {
 	t_obj_error	err;
 	t_infos		infos;
 	t_triangle	triangle;
 	char		c;
 
-	if ((err = info_triangle(r, &infos) != No_Error))
+	if ((err = info_triangle(r, &infos)) != No_Error)
 		return (err);
-	*object = create_object(10);
+	*groupe = create_groupe(10);
+	skip_ws(r, true);
 	while ((c = reader_peek(r)) != -1 && c == 'f')
 	{
 		if ((err = read_triangle(r, &infos, &triangle)) != No_Error)
 			return (err);
-		if (!append_triangle(object, triangle))
+		if (!append_triangle(groupe, triangle))
 			return (Error_Malloc);
 		skip_ws(r, true);
 	}
