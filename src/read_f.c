@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_f.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:59:37 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/11 22:02:59 by adimose          ###   ########.fr       */
+/*   Updated: 2019/07/12 14:12:29 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ t_obj_error			read_triangles(t_reader *r, t_groupe *groupe)
 
 	if ((err = info_triangle(r, &infos)) != No_Error)
 		return (err);
-	*groupe = create_groupe(10);
 	skip_ws(r, true);
 	while ((c = reader_peek(r)) != -1 && c == 'f')
 	{

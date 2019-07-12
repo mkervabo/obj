@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_groupe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:34:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/11 22:03:29 by adimose          ###   ########.fr       */
+/*   Updated: 2019/07/12 14:54:14 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,13 @@ t_obj_error			read_object(t_reader *r, t_object *object)
 			return (Error_Malloc);
 		skip_ws(r, true);
 	}
-	if (c != -1)
-		return (Unexpected_Char);
+	if (object->len == 0)
+	{
+		groupe = create_groupe(10);
+		groupe.name = malloc(sizeof(char));
+		groupe.name[0] = '\0';
+		if ((err = read_triangles(r, &groupe)) != No_Error)
+			return (err);
+	}
 	return (No_Error);
 }

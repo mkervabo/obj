@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:58:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/11 21:58:45 by adimose          ###   ########.fr       */
+/*   Updated: 2019/07/12 14:54:20 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ t_obj_error		read_obj(t_reader *r, t_obj *obj)
 			skip_ws(r, true);
 		}
 	}
+	if (c != -1)
+		return (Unexpected_Char);
 	return (No_Error);
 }

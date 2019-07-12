@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:01:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/11 22:01:29 by adimose          ###   ########.fr       */
+/*   Updated: 2019/07/12 13:55:10 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum	e_obj_error
 	Missing_Object,
 	Invalid_Vertex,
 	Invalid_Coord,
+	Invalid_Coord_Dot,
 	Missing_Line_Feed,
 	Invalid_Pos,
 	Invalid_Normal,
