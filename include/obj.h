@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:01:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:10 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/07/15 14:57:55 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ t_obj_error				read_object(t_reader *r, t_object *object);
 t_obj_error				read_triangles(t_reader *r, t_groupe *groupe);
 
 
-double					read_coord(t_reader *r, double *coord);
+t_obj_error				read_coord(t_reader *r, double *coord);
 double					read_integer(t_reader *r, bool *s);
 
 #endif
