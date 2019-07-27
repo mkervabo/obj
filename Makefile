@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME   = obj.a
+NAME   = libobj.a
 CC     = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -g
 
