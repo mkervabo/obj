@@ -13,9 +13,9 @@
 #include "obj.h"
 #include <unistd.h>
 
-t_reader	create_reader(int fd, char *buffer, size_t buffer_size)
+t_obj_reader	obj_create_reader(int fd, char *buffer, size_t buffer_size)
 {
-	return ((t_reader){
+	return ((t_obj_reader){
 		.fd = fd,
 		.buffer = buffer,
 		.buffer_size = buffer_size,
@@ -26,7 +26,7 @@ t_reader	create_reader(int fd, char *buffer, size_t buffer_size)
 	});
 }
 
-int16_t		reader_peek(t_reader *self)
+int16_t		obj_reader_peek(t_obj_reader *self)
 {
 	size_t	len;
 
@@ -41,9 +41,9 @@ int16_t		reader_peek(t_reader *self)
 	return (self->buffer[self->i]);
 }
 
-void		reader_next(t_reader *self)
+void		obj_reader_next(t_obj_reader *self)
 {
-	if (reader_peek(self) == '\n')
+	if (obj_reader_peek(self) == '\n')
 	{
 		self->line++;
 		self->column = 0;

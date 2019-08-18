@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adimose <adimose@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:44:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/07/11 21:57:40 by adimose          ###   ########.fr       */
+/*   Updated: 2019/08/18 17:59:35 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 #include <stdlib.h>
 
-t_object		create_object(size_t capacity)
+t_obj_object	create_object(size_t capacity)
 {
-	return ((t_object) {
+	return ((t_obj_object) {
 		.len = 0,
 		.capacity = capacity,
 		.inner = malloc(capacity * sizeof(t_groupe))
@@ -45,7 +45,7 @@ t_obj		create_obj(size_t capacity)
 	return ((t_obj) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_object))
+		.inner = malloc(capacity * sizeof(t_obj_object))
 	});
 }
 
@@ -54,6 +54,6 @@ t_groupe		create_groupe(size_t capacity)
 	return ((t_groupe) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_triangle))
+		.inner = malloc(capacity * sizeof(t_obj_triangle))
 	});
 }
