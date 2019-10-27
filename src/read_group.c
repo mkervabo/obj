@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_groupe.c                                      :+:      :+:    :+:   */
+/*   read_group.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:34:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/08/18 18:03:17 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/10/27 14:26:45 by dde-jesu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 #include <stdlib.h>
-
 
 void			*ft_memcpy(void *dst, const void *src, size_t n)
 {
@@ -66,51 +65,16 @@ static t_obj_error	read_name(t_obj_reader *r, char **name)
 	return (Obj_No_Error);
 }
 
-t_obj_error			read_groupe(t_obj_reader *r, t_groupe *groupe)
+t_obj_error			obj_read_group(t_obj_reader *r, t_obj_group *group)
 {
-	t_obj_error	err;
+	t_obj_error err;
 
-	*groupe = create_groupe(10);
 	obj_reader_next(r);
 	obj_skip_ws(r, false);
 	if (obj_reader_peek(r) == '\n')
 		return (Obj_Missing_Name);
-	if ((err = read_name(r, &groupe->name)) != Obj_No_Error)
+	if ((err = read_name(r, &group->name)) != Obj_No_Error)
 		return (err);
 	obj_skip_ws(r, true);
-	if ((err = read_triangles(r, groupe)) != Obj_No_Error)
-		return (err);
-	return (Obj_No_Error);
-}
-
-t_obj_error			read_obj_object(t_obj_reader *r, t_obj_object *object)
-{
-	t_obj_error err;
-	t_groupe	groupe;
-	char		c;
-
-	*object = create_object(10);
-	obj_skip_ws(r, false);
-	if (obj_reader_peek(r) == '\n')
-		return (Obj_Missing_Name);
-	if ((err = read_name(r, &object->name)) != Obj_No_Error)
-		return (err);
-	obj_skip_ws(r, true);
-	while ((c = obj_reader_peek(r)) != -1 && c == 'g')
-	{
-		if ((err = read_groupe(r, &groupe)) != Obj_No_Error)
-			return (err);
-		if (append_groupe(object, groupe) == false)
-			return (Obj_Error_Malloc);
-		obj_skip_ws(r, true);
-	}
-	if (object->len == 0)
-	{
-		groupe = create_groupe(10);
-		groupe.name = malloc(sizeof(char));
-		groupe.name[0] = '\0';
-		if ((err = read_triangles(r, &groupe)) != Obj_No_Error)
-			return (err);
-	}
 	return (Obj_No_Error);
 }

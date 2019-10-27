@@ -3,57 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:44:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/08/18 17:59:35 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/10/27 14:24:03 by dde-jesu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 #include <stdlib.h>
 
-t_obj_object	create_object(size_t capacity)
+t_obj_uv_array			obj_create_uv_array(size_t capacity)
 {
-	return ((t_obj_object) {
+	return ((t_obj_uv_array) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_groupe))
+		.inner = malloc(capacity * sizeof(t_obj_uv))
 	});
 }
 
-t_pos_array		create_pos_array(size_t capacity)
+t_obj_vertex_array		obj_create_vertex_array(size_t capacity)
 {
-	return ((t_pos_array) {
+	return ((t_obj_vertex_array) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_pos))
+		.inner = malloc(capacity * sizeof(t_obj_vertex))
 	});
 }
 
-t_vertex_array		create_vertex_array(size_t capacity)
+t_obj_triangle_array	obj_create_triangle_array(size_t capacity)
 {
-	return ((t_vertex_array) {
+	return ((t_obj_triangle_array) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_vertex))
+		.inner = malloc(capacity * sizeof(t_obj_triangle))
 	});
 }
 
-t_obj		create_obj(size_t capacity)
+t_obj					obj_create(size_t capacity)
 {
 	return ((t_obj) {
 		.len = 0,
 		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_obj_object))
-	});
-}
-
-t_groupe		create_groupe(size_t capacity)
-{
-	return ((t_groupe) {
-		.len = 0,
-		.capacity = capacity,
-		.inner = malloc(capacity * sizeof(t_obj_triangle))
+		.inner = malloc(capacity * sizeof(t_obj_group))
 	});
 }

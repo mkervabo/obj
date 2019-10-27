@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_coord.c                                       :+:      :+:    :+:   */
+/*   read_double.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:56:52 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/08/18 17:51:46 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:24:25 by dde-jesu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 
-double			read_integer(t_obj_reader *r, bool *s)
+double			obj_read_integer(t_obj_reader *r, bool *s)
 {
 	double	num;
 	int16_t	c;
@@ -33,7 +33,7 @@ double			read_integer(t_obj_reader *r, bool *s)
 	return (num);
 }
 
-static double	read_float(t_obj_reader *r)
+static double	obj_read_float_part(t_obj_reader *r)
 {
 	double	num;
 	size_t	i;
@@ -55,21 +55,21 @@ static double	read_float(t_obj_reader *r)
 	return (num);
 }
 
-t_obj_error		read_coord(t_obj_reader *r, double *coord)
+t_obj_error		obj_read_double(t_obj_reader *r, double *d)
 {
 	bool	sign;
 	int16_t	c;
 
 	c = obj_reader_peek(r);
 	if ((c < '0' || c > '9') && c != '-' && c != '+')
-		return (Obj_Invalid_Coord);
-	*coord = read_integer(r, &sign);
+		return (Obj_Invalid_Double);
+	*d = obj_read_integer(r, &sign);
 	if (obj_reader_peek(r) != '.')
-		return (Obj_Invalid_Coord_Dot);
+		return (Obj_Invalid_Double_Dot);
 	obj_reader_next(r);
 	c = obj_reader_peek(r);
 	if ((c < '0' || c > '9') && c != '-' && c != '+')
-		return (Obj_Invalid_Coord);
-	*coord = (sign ? -1 : 1) * (*coord + read_float(r));
+		return (Obj_Invalid_Double);
+	*d = (sign ? -1 : 1) * (*d + obj_read_float_part(r));
 	return (Obj_No_Error);
 }
