@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_double.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 12:56:52 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/26 18:24:25 by dde-jesu         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:05:16 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ double			obj_read_integer(t_obj_reader *r, bool *s)
 		*s = true;
 	if (c == '-' || c == '+')
 		obj_reader_next(r);
-	while ((c = obj_reader_peek(r)) != -1 && ((c >= '0' && c <= '9') || c == '_'))
+	while ((c = obj_reader_peek(r)) != -1 && ((c >= '0' && c <= '9')
+		|| c == '_'))
 	{
 		if (c >= '0' && c <= '9')
 			num = num * 10 + (c - 48);
@@ -41,7 +42,8 @@ static double	obj_read_float_part(t_obj_reader *r)
 
 	i = 0;
 	num = 0;
-	while ((c = obj_reader_peek(r)) != -1 && ((c >= '0' && c <= '9') || c == '_'))
+	while ((c = obj_reader_peek(r)) != -1 && ((c >= '0' && c <= '9')
+		|| c == '_'))
 	{
 		if (c >= '0' && c <= '9')
 		{

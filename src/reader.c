@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:13:11 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/26 16:45:45 by dde-jesu         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:33:29 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_obj_reader	obj_create_reader(int fd, char *buffer, size_t buffer_size)
 	});
 }
 
-int16_t		obj_reader_peek(t_obj_reader *self)
+int16_t			obj_reader_peek(t_obj_reader *self)
 {
 	size_t	len;
 
@@ -41,7 +41,7 @@ int16_t		obj_reader_peek(t_obj_reader *self)
 	return (self->buffer[self->i]);
 }
 
-void		obj_reader_next(t_obj_reader *self)
+void			obj_reader_next(t_obj_reader *self)
 {
 	if (obj_reader_peek(self) == '\n')
 	{

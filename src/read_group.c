@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   read_group.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 11:34:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/27 14:26:45 by dde-jesu         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:07:36 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 #include <stdlib.h>
 
-void			*ft_memcpy(void *dst, const void *src, size_t n)
+void				*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	const char	*c_src = src;
 	char		*c_dst;
@@ -24,10 +24,10 @@ void			*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-static bool			append_char(char **str, char c, size_t *size , size_t i)
+static bool			append_char(char **str, char c, size_t *size, size_t i)
 {
 	size_t	new_size;
-	char 	*new;
+	char	*new;
 
 	if (i == *size)
 	{
@@ -45,9 +45,9 @@ static bool			append_char(char **str, char c, size_t *size , size_t i)
 
 static t_obj_error	read_name(t_obj_reader *r, char **name)
 {
-	int16_t c;
-	size_t size;
-	size_t i;
+	int16_t	c;
+	size_t	size;
+	size_t	i;
 
 	size = 10;
 	if (!(*name = (char*)malloc(sizeof(char) * size)))
@@ -55,13 +55,13 @@ static t_obj_error	read_name(t_obj_reader *r, char **name)
 	i = 0;
 	while ((c = obj_reader_peek(r)) != -1 && c != '\n')
 	{
-		if (append_char(name, c, &size, i) == false) 
+		if (append_char(name, c, &size, i) == false)
 			return (Obj_Error_Malloc);
 		i++;
 		obj_reader_next(r);
 	}
 	if (append_char(name, '\0', &size, i) == false)
-			return (Obj_Error_Malloc);
+		return (Obj_Error_Malloc);
 	return (Obj_No_Error);
 }
 

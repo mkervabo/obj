@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-jesu <dde-jesu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 18:48:34 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/27 14:24:49 by dde-jesu         ###   ########.fr       */
+/*   Updated: 2019/10/30 10:07:26 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
 #include <stdlib.h>
 
-bool					obj_append_triangle(t_obj_triangle_array *array, t_obj_triangle t)
+bool					obj_append_triangle(t_obj_triangle_array *array,
+	t_obj_triangle t)
 {
 	size_t			new_capacity;
 	t_obj_triangle	*new;
@@ -51,7 +52,8 @@ bool					obj_append_uv(t_obj_uv_array *array, t_obj_uv uv)
 	return (true);
 }
 
-bool					obj_append_vertex(t_obj_vertex_array *array, t_obj_vertex v)
+bool					obj_append_vertex(t_obj_vertex_array *array,
+	t_obj_vertex v)
 {
 	size_t			new_capacity;
 	t_obj_vertex	*new;

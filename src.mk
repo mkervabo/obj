@@ -4,4 +4,6 @@ SRCS += src/obj.c
 SRCS += src/read_double.c
 SRCS += src/read_group.c
 SRCS += src/read_triangle.c
+SRCS += src/read_vertex.c
 SRCS += src/reader.c
+SRCS += src/utils.c
