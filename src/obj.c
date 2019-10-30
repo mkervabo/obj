@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:58:21 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/30 15:07:12 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/10/30 19:17:21 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,21 @@ static t_obj_error	obj_read_type(t_obj_reader *r, t_obj *obj,
 	int16_t		c;
 
 	if ((c = obj_reader_peek(r)) == 'v')
-	{
-		if ((err = obj_read_vertex_type(r, obj)) != Obj_No_Error)
-			return (err);
-	}
+		err = obj_read_vertex_type(r, obj);
 	else if (c == 'f')
-	{
-		if ((err = obj_read_triangles(r, obj, current_group)) != Obj_No_Error)
-			return (err);
-	}
+		err = obj_read_triangles(r, obj, current_group);
 	else if (c == 'g')
-	{
-		if ((err = obj_read_type_groupe(r, obj, current_group)))
-			return (err);
-	}
+		err = obj_read_type_groupe(r, obj, current_group);
 	else if (c == 's' || c == 'm' || c == 'u' || c == 'o')
 	{
 		while ((c = obj_reader_peek(r)) != -1 && c != '\n')
 			obj_reader_next(r);
 		obj_skip_ws(r, true);
+		err = Obj_No_Error;
 	}
-	return (Obj_Unexpected_Char);
+	else
+		err = Obj_Unexpected_Char;
+	return (err);
 }
 
 t_obj_error			obj_read(t_obj_reader *r, t_obj *obj)
