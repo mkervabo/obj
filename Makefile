@@ -3,36 +3,39 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adimose <adimose@student.42.fr>            +#+  +:+       +#+         #
+#    By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/07/08 15:25:21 by mkervabo          #+#    #+#              #
-#    Updated: 2019/10/27 10:49:39 by dde-jesu         ###   ########.fr        #
+#    Created: 2019/05/12 13:29:47 by mkervabo          #+#    #+#              #
+#    Updated: 2019/11/02 17:23:14 by dde-jesu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME   = libobj.a
-CC     = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -g
+.SECONDARY:
 
-include src.mk
+libobj.rootdir := $(dir $(lastword $(MAKEFILE_LIST)))
 
-OBJS=$(patsubst src/%.c,build/%.o,$(SRCS))
+libobj.objects := append.o create.o obj.o read_double.o read_group.o \
+	read_triangle.o read_vertex.o reader.o utils.o
+libobj.objects := $(addprefix $(libobj.rootdir)src/, $(libobj.objects))
 
-all: $(NAME)
+$(libobj.objects): CC       = gcc
+$(libobj.objects): CFLAGS   ?= -Wall -Wextra -Werror
+$(libobj.objects): CPPFLAGS += -MMD -MP -I$(libobj.rootdir)include
 
-build/%.o: src/%.c include/obj.h Makefile
-	@mkdir -p build
-	$(CC) $(CFLAGS) -c $< -o $@
+.PHONY: all
+all: libobj.a
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+libobj.a: libobj.a($(libobj.objects))
 
-clean:
-	rm -rf build
+.PHONY: clean
+clean::
+	$(RM) $(libobj.objects:.o=.{o,d,gcno,gcna})
 
-fclean: clean
-	rm -f $(NAME)
+.PHONY: fclean
+fclean:: clean
+	$(RM) libobj.a
 
-re:	fclean all 
+.PHNOY: re
+re: fclean all
 
-.PHONY:	all	clean fclean re
+-include $(wildcard $(libobj.rootdir)src/*.d)

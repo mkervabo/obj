@@ -1,2 +1,3 @@
-/build
-/libobj.a
+libobj.a
+*.d
+*.o
