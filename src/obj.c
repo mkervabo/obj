@@ -41,11 +41,17 @@ static t_obj_error	obj_read_vertex_type(t_obj_reader *r, t_obj *obj)
 static t_obj_error	obj_read_type_groupe(t_obj_reader *r, t_obj *obj,
 	t_obj_group *current_group)
 {
-	t_obj_error err;
+	t_obj_error				err;
+	t_obj_triangle_array	faces;
 
-	if (!(current_group = obj_append_group(obj, (t_obj_group) {
-		.faces = obj_create_triangle_array(10)})))
+	if (!(faces = obj_create_triangle_array(10)).inner)
 		return (Obj_Error_Malloc);
+	if (!(current_group = obj_append_group(obj, (t_obj_group) {
+		.faces = faces })))
+	{
+		free(faces.inner);
+		return (Obj_Error_Malloc);
+	}
 	if ((err = obj_read_group(r, current_group)) != Obj_No_Error)
 		return (err);
 	return (Obj_No_Error);
@@ -81,21 +87,21 @@ t_obj_error			obj_read(t_obj_reader *r, t_obj *obj)
 	int16_t		c;
 
 	*obj = obj_create(10);
-	obj->v = obj_create_vertex_array(10);
-	obj->vt = obj_create_uv_array(10);
-	obj->vn = obj_create_vertex_array(10);
-	if (!(current_group = obj_append_group(obj, (t_obj_group) {
-		.name = "default",
-		.faces = obj_create_triangle_array(10)
+	if (!(obj->v = obj_create_vertex_array(10)).inner
+		|| !(obj->vt = obj_create_uv_array(10)).inner
+		|| !(obj->vn = obj_create_vertex_array(10)).inner
+		|| !(current_group = obj_append_group(obj, (t_obj_group) {
+			.name = NULL,
+			.faces = obj_create_triangle_array(10)
 	})))
-		return (Obj_Error_Malloc);
+		return (Obj_Error_Malloc + obj_free(obj));
 	obj_skip_ws(r, true);
 	while ((c = obj_reader_peek(r)) != -1)
 	{
 		if ((err = obj_read_type(r, obj, current_group, err)) != Obj_No_Error)
-			return (err);
+			return (err + obj_free(obj));
 	}
 	if (c != -1)
-		return (Obj_Unexpected_Char);
+		return (Obj_Unexpected_Char + obj_free(obj));
 	return (Obj_No_Error);
 }

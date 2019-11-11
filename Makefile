@@ -15,7 +15,7 @@
 libobj.rootdir := $(dir $(lastword $(MAKEFILE_LIST)))
 
 libobj.objects := append.o create.o obj.o read_double.o read_group.o \
-	read_triangle.o read_vertex.o reader.o utils.o
+	read_triangle.o read_vertex.o reader.o utils.o free.o
 libobj.objects := $(addprefix $(libobj.rootdir)src/, $(libobj.objects))
 
 $(libobj.objects): CC       = gcc
