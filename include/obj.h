@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:01:09 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/30 15:12:36 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:13:00 by dde-jesu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ typedef struct			s_obj_vertex_array
 
 typedef struct			s_obj_triangle_point
 {
-	t_obj_vertex	*v;
-	t_obj_uv		*vt;
-	t_obj_vertex	*vn;
+	size_t	v_index;
+	size_t	vt_index;
+	size_t	vn_index;
 }						t_obj_triangle_point;
 
 typedef struct			s_obj_triangle

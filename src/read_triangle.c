@@ -6,7 +6,7 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:59:37 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/10/30 15:06:47 by mkervabo         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:13:39 by dde-jesu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static t_obj_error	read_triangle_vertex(t_obj_reader *r, t_obj *obj,
 	if ((err = read_triangle_vertex_indexes(r, &v, &vt, &vn)) != Obj_No_Error)
 		return (err);
 	if (v <= obj->v.len)
-		p->v = &obj->v.inner[v];
+		p->v_index = v;
 	else
 		return (Obj_Invalid_Triangle_Vertex);
 	if (vt <= obj->vt.len)
-		p->vt = &obj->vt.inner[vt];
+		p->vt_index = vt;
 	else
 		return (Obj_Invalid_Triangle_Vertex);
 	if (vn <= obj->vn.len)
-		p->vn = &obj->vn.inner[vn];
+		p->vn_index = vn;
 	else
 		return (Obj_Invalid_Triangle_Vertex);
 	return (Obj_No_Error);

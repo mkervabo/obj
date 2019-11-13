@@ -6,7 +6,7 @@
 #    By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:29:47 by mkervabo          #+#    #+#              #
-#    Updated: 2019/11/02 17:23:14 by dde-jesu         ###   ########.fr        #
+#    Updated: 2019/11/11 14:43:26 by dde-jesu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ libobj.objects := append.o create.o obj.o read_double.o read_group.o \
 	read_triangle.o read_vertex.o reader.o utils.o free.o
 libobj.objects := $(addprefix $(libobj.rootdir)src/, $(libobj.objects))
 
-$(libobj.objects): CC       = gcc
 $(libobj.objects): CFLAGS   ?= -Wall -Wextra -Werror
 $(libobj.objects): CPPFLAGS += -MMD -MP -I$(libobj.rootdir)include
 
