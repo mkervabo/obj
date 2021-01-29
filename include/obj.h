@@ -43,8 +43,18 @@ typedef enum			e_obj_error
 	Obj_Invalid_Triangle,
 	Obj_Invalid_Triangle_Vertex,
 	Obj_Unexpected_Char,
-	Obj_Face_Without_Object
+	Obj_Face_Without_Object,
+	Obj_Invalid_Type,
 }						t_obj_error;
+
+typedef enum			e_obj_triangle_type
+{
+	Obj_No_Type,
+	Obj_Vertex_Texture_Normal_Type,
+	Obj_Vertex_Type,
+	Obj_Vertex_Texture_Type,
+	Obj_Vertex_Normal_Type
+}						t_obj_triangle_type;
 
 typedef struct			s_obj_uv
 {
@@ -109,6 +119,7 @@ typedef struct			s_obj
 	t_obj_vertex_array	v;
 	t_obj_uv_array		vt;
 	t_obj_vertex_array	vn;
+	t_obj_triangle_type	type;
 }						t_obj;
 
 t_obj_reader			obj_create_reader(int fd, char *buffer,
@@ -140,6 +151,10 @@ t_obj_error				obj_read_vertex(t_obj_reader *r,
 						t_obj_vertex_array *array);
 t_obj_error				obj_read_uv(t_obj_reader *r, t_obj_uv_array *array);
 int						obj_free(t_obj *obj);
+
+t_obj_error				read_vertex_type(t_obj_reader *r, size_t *v, t_obj_triangle_type *type);
+t_obj_error				read_texture_type(t_obj_reader *r, size_t *vt, t_obj_triangle_type *type);
+t_obj_error				read_normal_type(t_obj_reader *r, size_t *vn, t_obj_triangle_type *type);
 
 void					*ft_memcpy(void *dst, const void *src, size_t n);
 

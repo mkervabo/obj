@@ -12,7 +12,6 @@
 
 #include "obj.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 static t_obj_error	obj_read_vertex_type(t_obj_reader *r, t_obj *obj)
 {
@@ -87,6 +86,7 @@ t_obj_error			obj_read(t_obj_reader *r, t_obj *obj)
 	int16_t		c;
 
 	*obj = obj_create(10);
+	obj->type = Obj_No_Type;
 	if (!(obj->v = obj_create_vertex_array(10)).inner
 		|| !(obj->vt = obj_create_uv_array(10)).inner
 		|| !(obj->vn = obj_create_vertex_array(10)).inner

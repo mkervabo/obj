@@ -6,65 +6,68 @@
 /*   By: mkervabo <mkervabo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:59:37 by mkervabo          #+#    #+#             */
-/*   Updated: 2019/11/13 18:13:39 by dde-jesu         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:13:39 by mkervabo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "obj.h"
+#include <stdio.h>
 
-static t_obj_error	read_triangle_vertex_indexes(t_obj_reader *r, size_t *v,
-	size_t *vt, size_t *vn)
+static t_obj_error read_triangle_Obj_Vertex_indexes(t_obj_reader *r, size_t *v,
+	size_t *vt, size_t *vn, t_obj_triangle_type *type)
 {
-	char	c;
-	bool	b;
+	t_obj_error err;
 
-	if ((c = obj_reader_peek(r)) < '0' || c > '9')
-		return (Obj_Invalid_Triangle_Vertex);
-	*v = (size_t)obj_read_integer(r, &b) - 1;
-	if (obj_reader_peek(r) != '/')
-		return (Obj_Invalid_Triangle_Vertex);
+	if((err = read_vertex_type(r, v, type)) != Obj_No_Error)
+		return(err);
+	if (*type == Obj_Vertex_Type)
+		return(Obj_No_Error);
 	obj_reader_next(r);
-	if ((c = obj_reader_peek(r)) < '0' || c > '9')
-		return (Obj_Invalid_Triangle_Vertex);
-	*vt = (size_t)obj_read_integer(r, &b) - 1;
-	if (obj_reader_peek(r) != '/')
-		return (Obj_Invalid_Triangle_Vertex);
+	if((err = read_texture_type(r, vt, type)) != Obj_No_Error)
+		return(err);
+	if (*type == Obj_Vertex_Texture_Type)
+		return(Obj_No_Error);
 	obj_reader_next(r);
-	if ((c = obj_reader_peek(r)) < '0' || c > '9')
-		return (Obj_Invalid_Triangle_Vertex);
-	*vn = (size_t)obj_read_integer(r, &b) - 1;
+	if((err =read_normal_type(r, vn, type)) != Obj_No_Error)
+		return(err);
 	return (Obj_No_Error);
 }
 
-static t_obj_error	read_triangle_vertex(t_obj_reader *r, t_obj *obj,
+static t_obj_error read_triangle_vertex(t_obj_reader *r, t_obj *obj,
 	t_obj_triangle_point *p)
 {
-	t_obj_error	err;
-	size_t		v;
-	size_t		vt;
-	size_t		vn;
+	t_obj_error err;
+	size_t v;
+	size_t vt;
+	size_t vn;
 
-	if ((err = read_triangle_vertex_indexes(r, &v, &vt, &vn)) != Obj_No_Error)
+	if ((err = read_triangle_Obj_Vertex_indexes(r, &v, &vt, &vn, &obj->type)) != Obj_No_Error)
 		return (err);
 	if (v <= obj->v.len)
 		p->v_index = v;
 	else
 		return (Obj_Invalid_Triangle_Vertex);
-	if (vt <= obj->vt.len)
-		p->vt_index = vt;
-	else
-		return (Obj_Invalid_Triangle_Vertex);
-	if (vn <= obj->vn.len)
-		p->vn_index = vn;
-	else
-		return (Obj_Invalid_Triangle_Vertex);
+	if (obj->type == Obj_Vertex_Texture_Type || obj->type == Obj_Vertex_Texture_Normal_Type)
+	{
+		if (vt <= obj->vt.len)
+			p->vt_index = vt;
+		else
+			return (Obj_Invalid_Triangle_Vertex);
+	}
+	if (obj->type == Obj_Vertex_Normal_Type || obj->type == Obj_Vertex_Texture_Normal_Type)
+	{
+		if (vn <= obj->vn.len)
+			p->vn_index = vn;
+		else
+			return (Obj_Invalid_Triangle_Vertex);
+	}
 	return (Obj_No_Error);
 }
 
-static t_obj_error	obj_triangle_vertex(t_obj_reader *r, t_obj *obj,
+static t_obj_error obj_triangle_vertex(t_obj_reader *r, t_obj *obj,
 	t_obj_group *group, t_obj_triangle *triangle)
 {
-	t_obj_error	err;
+	t_obj_error err;
 
 	if (!obj_append_triangle(&group->faces, *triangle))
 		return (Obj_Error_Malloc);
@@ -75,11 +78,11 @@ static t_obj_error	obj_triangle_vertex(t_obj_reader *r, t_obj *obj,
 	return (Obj_No_Error);
 }
 
-t_obj_error			obj_read_triangles(t_obj_reader *r, t_obj *obj,
+t_obj_error obj_read_triangles(t_obj_reader *r, t_obj *obj,
 	t_obj_group *group)
 {
-	t_obj_error		err;
-	t_obj_triangle	triangle;
+	t_obj_error err;
+	t_obj_triangle triangle;
 
 	obj_reader_next(r);
 	obj_skip_ws(r, false);
@@ -94,8 +97,7 @@ t_obj_error			obj_read_triangles(t_obj_reader *r, t_obj *obj,
 	obj_skip_ws(r, false);
 	while (obj_reader_peek(r) != '\n' && obj_reader_peek(r) != -1)
 	{
-		if ((err = obj_triangle_vertex(r, obj, group, &triangle))
-			!= Obj_No_Error)
+		if ((err = obj_triangle_vertex(r, obj, group, &triangle)) != Obj_No_Error)
 			return (err);
 	}
 	if (!obj_append_triangle(&group->faces, triangle))
