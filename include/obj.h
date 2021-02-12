@@ -151,6 +151,7 @@ t_obj_error				obj_read_vertex(t_obj_reader *r,
 						t_obj_vertex_array *array);
 t_obj_error				obj_read_uv(t_obj_reader *r, t_obj_uv_array *array);
 int						obj_free(t_obj *obj);
+char					*obj_error_msg(t_obj_error err);
 
 t_obj_error				read_vertex_type(t_obj_reader *r, size_t *v, t_obj_triangle_type *type);
 t_obj_error				read_texture_type(t_obj_reader *r, size_t *vt, t_obj_triangle_type *type);

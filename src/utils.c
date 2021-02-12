@@ -27,3 +27,29 @@ void			obj_skip_ws(t_obj_reader *r, bool newline)
 		obj_reader_next(r);
 	}
 }
+
+char	*obj_error_msg(t_obj_error err)
+{
+	const char	*messages[] = {
+	[Obj_Error_Malloc] = "Error Malloc",
+	[Obj_Missing_Name] = "Missing Name",
+	[Obj_Missing_Object] = "Missing Object",
+	[Obj_Invalid_Vertex] = "Invalid Vertex",
+	[Obj_Invalid_Double] = "Invalid Double",
+	[Obj_Invalid_Double_Dot] = "Invalid Double Dot",
+	[Obj_Missing_Line_Feed] = "Missing Line Feed",
+	[Obj_Invalid_Uv] = "Invalid_Uv",
+	[Obj_Invalid_Normal] = "Invalid Normal",
+	[Obj_Invalid_Triangle] = "Invalid Triangle",
+	[Obj_Invalid_Triangle_Vertex] = "Invalid Traingle Vertex",
+	[Obj_Unexpected_Char] = "Unexpected Char",
+	[Obj_Face_Without_Object] = "Face Without Object",
+	[Obj_Invalid_Type] = "Invalid Type",
+	};
+
+	if (err > 0 && err <= sizeof(messages) / sizeof(*messages))
+		return ((char *)messages[err]);
+	else
+		return (NULL);
+}
+
